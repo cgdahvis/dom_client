@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-path=r"C:\Users\Christopher Davis\Desktop\blotter_5.1.xlsx"
+path=r"blotter_5.1.xlsx"
 df=pd.read_excel(path)
 
 df=df[df['Client'].str.contains('GU')]
