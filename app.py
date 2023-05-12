@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-path=r"blotter.xlsx"
+path=r"C:\Users\Christopher Davis\Downloads\blotter.xlsx"
 df=pd.read_excel(path)
 
 df=df[df['Client'].str.contains('GU')]
@@ -29,6 +29,11 @@ plot_df = df[df['Client Name'].isin(selected_cients)]
 st.write('First Trade Date:', plot_df['Trade Date'].min())
 st.write('Last Trade Date:', plot_df['Trade Date'].max())
 
+
+#list most recent trades
+st.write('Most Recent Trades')
+st.write(plot_df[['Client Name', 'Trade Date', 'Ccy Pair', 'B/S','Rate','Strike','C/P','Price','Expiry Date','Barrier Type','Lower Barrier','Upper Barrier','Knock In/Out','Touch Up/Dn']].sort_values(by='Trade Date', ascending=False).head(50))
+
 #make graph displaying client frequency of each ccy pair using unique trade dates
 st.write('Frequency of Trades by Ccy Pair')
 st.bar_chart(plot_df.groupby('Ccy Pair')['Trade Date'].nunique())
@@ -45,7 +50,4 @@ st.write('Median Option Expiry by Client')
 st.bar_chart(plot_df.groupby('Client Name')['Option Expiry'].median())
 
 
-
-
-
-st.write(plot_df)
+# st.write(plot_df)
