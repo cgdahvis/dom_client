@@ -34,6 +34,17 @@ st.write('Last Trade Date:', plot_df['Trade Date'].max())
 st.write('Most Recent Trades')
 st.write(plot_df[['Client Name', 'Trade Date', 'Ccy Pair', 'B/S','Rate','Strike','C/P','Price','Expiry Date','Barrier Type','Lower Barrier','Upper Barrier','Knock In/Out','Touch Up/Dn']].sort_values(by='Trade Date', ascending=False).head(50))
 
+import streamlit as st
+import pandas as pd
+
+
+
+#number of trades by client
+st.write('Number of Trades by Client (using unique trade dates))')
+st.bar_chart(plot_df.groupby('Client Name')['Trade Date'].nunique())
+
+
+
 #make graph displaying client frequency of each ccy pair using unique trade dates
 st.write('Frequency of Trades by Ccy Pair')
 st.bar_chart(plot_df.groupby('Ccy Pair')['Trade Date'].nunique())
@@ -48,6 +59,13 @@ st.bar_chart(plot_df.groupby('Client Name')['Option Expiry'].mean())
 #groupby client and show median option expiry
 st.write('Median Option Expiry by Client')
 st.bar_chart(plot_df.groupby('Client Name')['Option Expiry'].median())
+
+#create time series chart where y axis is number of unique trade dates and x axis date
+#add line to above graph for moving average of most recent 5 days
+#add line to above graph for moving average of most recent 10 days
+st.write('Number of Trades by Date')
+st.line_chart(plot_df.groupby('Trade Date')['Client Name'].nunique())
+
 
 
 # st.write(plot_df)
